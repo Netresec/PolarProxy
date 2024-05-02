@@ -1,0 +1,142 @@
+{
+  "name": "block-malicious TLS firewall",
+  "version": "1.0",
+  "description": "Ruleset that blocks potentially malicious traffic, but allows everything else to pass through without inspection. This ruleset doesn't require any additional root CA to be trusted by clients since it never decrypts or inspects the TLS traffic.",
+  "rules": [
+    {
+      "active": true,
+      "match": {
+        "type": "nontls"
+      },
+      "action": {
+        "type": "block"
+      },
+      "description": "Block non-TLS traffic. Other possible actions are bypass and encrypt, but a target must be defined in the action section to use those."
+    },
+    {
+      "active": true,
+      "match": {
+        "type": "domain",
+        "expression": null
+      },
+      "action": {
+        "type": "block"
+      },
+      "description": "Block connections without SNI (unknown domain)."
+    },
+    {
+      "active": true,
+      "match": {
+        "type": "domain_in_file",
+        "expression": "https://threatfox.abuse.ch/downloads/threatfox.rpz",
+        "format": "rpz",
+        "gzip": false,
+        "reload": 3600
+      },
+      "action": {
+        "type": "block"
+      },
+      "description": "Block traffic to malicious domains"
+    },
+    {
+      "active": true,
+      "match": {
+        "type": "domain_in_file",
+        "expression": "https://github.com/zakird/crux-top-lists/raw/main/data/global/current.csv.gz",
+        "format": "crux",
+        "gzip": true,
+        "reload": 86400
+      },
+      "action": {
+        "type": "bypass"
+      },
+      "description": "Use Google CrUX as an allow-list to prevent blocking of legitimate domains. Other alternatives is to use Cisco Umbrella, tranco-list.eu, data.openintel.nl or Alexa Top 1M (if you have an old copy). The expression can be either a local path or a http/https URL. Gzip compressed files are allowed, but not zip or tar."
+    },
+    {
+      "active": true,
+      "match": {
+        "type": "ja3",
+        "expression": "51c64c77e60f3980eea90869b68c58a8"
+      },
+      "action": {
+        "type": "block"
+      },
+      "description": "Emotet/Dridex"
+    },
+    {
+      "active": true,
+      "match": {
+        "type": "ja3",
+        "expression": "a85be79f7b569f1df5e6087b69deb493"
+      },
+      "action": {
+        "type": "block"
+      },
+      "description": "Remcos RAT"
+    },
+    {
+      "active": true,
+      "match": {
+        "type": "ja4",
+        "expression": "t13i010400_0f2cb44170f4_5c4c70b73fa0"
+      },
+      "action": {
+        "type": "block"
+      },
+      "description": "Remcos RAT"
+    },
+    {
+      "active": true,
+      "match": {
+        "type": "ja4",
+        "expression": "t13i010400_0f2cb44170f4_1b583af8cc09"
+      },
+      "action": {
+        "type": "block"
+      },
+      "description": "Remcos RAT"
+    },
+    {
+      "active": true,
+      "match": {
+        "type": "ja4",
+        "expression": "t13i190800_9dc949149365_97f8aa674fd9"
+      },
+      "action": {
+        "type": "block"
+      },
+      "description": "Sliver"
+    },
+    {
+      "active": true,
+      "match": {
+        "type": "ja4",
+        "expression": "t13d190900_9dc949149365_97f8aa674fd9"
+      },
+      "action": {
+        "type": "block"
+      },
+      "description": "Sliver"
+    },
+    {
+      "active": true,
+      "match": {
+        "type": "domain_in_file",
+        "expression": "https://easylist.to/easylist/easyprivacy.txt",
+        "format": "easylist",
+        "gzip": false,
+        "reload": 86400
+      },
+      "action": {
+        "type": "block"
+      },
+      "description": "Also block trackers, even though they aren't necessarily malicious."
+    }
+  ],
+  "default": {
+    "action": {
+      "type": "bypass"
+    },
+    "description": "Bypass inspection for traffic not classified as malicious, so that no root cert needs to be installed on clients."
+  }
+}

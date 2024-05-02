@@ -1,0 +1,189 @@
+{
+  "name": "inspect-custom Demo Ruleset",
+  "version": "1.0",
+  "description": "TLS proxy ruleset that inspects interesting, odd or malicious traffic.",
+  "rules": [
+    {
+      "active": true,
+      "match": {
+        "type": "nontls"
+      },
+      "action": {
+        "type": "block"
+      },
+      "description": "Block non-TLS traffic. Other possible actions are bypass and encrypt, but a target must be defined in the action section to use those."
+    },
+    {
+      "active": true,
+      "match": {
+        "type": "domain",
+        "expression": null
+      },
+      "action": {
+        "type": "block"
+      },
+      "description": "Block connections without SNI (unknown domain)."
+    },
+    {
+      "active": true,
+      "match": {
+        "type": "decrypt_fail",
+        "expression": 2,
+        "period": 3600
+      },
+      "action": {
+        "type": "bypass"
+      },
+      "description": "Fail-open. Bypass decryption after previously having failed to inspect or decrypt traffic between the same client and server 2 times within the last hour (3600 seconds)."
+    },
+    {
+      "active": true,
+      "match": {
+        "type": "domain_in_file",
+        "expression": "https://raw.githubusercontent.com/jpgpi250/piholemanual/master/DOH.rpz",
+        "format": "rpz",
+        "gzip": false,
+        "reload": 3600
+      },
+      "action": {
+        "type": "inspect"
+      },
+      "description": "Inspect DoH traffic to allow other tools to parse and log otherwise encrypted DNS queries and responses."
+    },
+    {
+      "active": true,
+      "match": {
+        "type": "alpn",
+        "expression": "dot"
+      },
+      "action": {
+        "type": "inspect"
+      },
+      "description": "Inspect ALPN specifying DNS over TLS (DoT)"
+    },
+    {
+      "active": true,
+      "match": {
+        "type": "alpn",
+        "expression": "xmpp-client"
+      },
+      "action": {
+        "type": "inspect"
+      },
+      "description": "Inspect XMPP jabber traffic"
+    },
+    {
+      "active": true,
+      "match": {
+        "type": "alpn",
+        "expression": "xmpp-server"
+      },
+      "action": {
+        "type": "inspect"
+      },
+      "description": "Inspect XMPP jabber traffic"
+    },
+    {
+      "active": true,
+      "match": {
+        "type": "alpn",
+        "expression": "mqtt"
+      },
+      "action": {
+        "type": "inspect"
+      },
+      "description": "Inspect MQTT traffic"
+    },
+    {
+      "active": true,
+      "match": {
+        "type": "alpn",
+        "expression": "stun.turn"
+      },
+      "action": {
+        "type": "inspect"
+      },
+      "description": "Inspect traffic with ALPN specifying Traversal Using Relays around NAT (TURN)"
+    },
+    {
+      "active": true,
+      "match": {
+        "type": "alpn",
+        "expression": "webrtc"
+      },
+      "action": {
+        "type": "inspect"
+      },
+      "description": "Inspect WebRTC traffic"
+    },
+    {
+      "active": true,
+      "match": {
+        "type": "alpn",
+        "expression": "c-webrtc"
+      },
+      "action": {
+
+        "type": "bypass"
+      },
+      "description": "Don't inspect Confidential WebRTC traffic"
+    },
+    {
+      "active": true,
+      "match": {
+        "type": "domain_regex",
+        "expression": "^dns\\.google\\.com$|^dns\\.google$|cloudflare-dns\\.com$|^dns[0-9]*\\.quad9\\.net$|^doh\\.cleanbrowsing\\.org$|dns\\.cleanbrowsing\\.org$|^dns[a-z\\-]*\\.adguard\\.com$|freedns\\.controld\\.com$"
+      },
+      "action": {
+        "type": "inspect"
+      },
+      "description": "Inspect DNS over HTTPS (DoH) and DNS over TLS (DoT)"
+    },
+    {
+      "active": true,
+      "match": {
+        "type": "domain_in_file",
+        "expression": "https://threatfox.abuse.ch/downloads/threatfox.rpz",
+        "format": "rpz",
+        "gzip": false,
+        "reload": 3600
+      },
+      "action": {
+        "type": "inspect",
+        "throttle": "10k"
+      },
+      "description": "Inspect traffic to malicious domains and throttle bandwidth to 10kB/s"
+    },
+    {
+      "active": true,
+      "match": {
+        "type": "domain_regex",
+        "expression": "\\.google\\.com$|\\.gvt1\\.com$|\\.1e100\\.net$|\\.gstatic\\.com$"
+      },
+      "action": {
+        "type": "bypass"
+      },
+      "description": "Bypassing decryption for Google traffic."
+    },
+    {
+      "active": true,
+      "match": {
+        "type": "domain_in_file",
+        "expression": "https://github.com/zakird/crux-top-lists/raw/main/data/global/current.csv.gz",
+        "format": "crux",
+        "gzip": true,
+        "reload": 86400
+      },
+      "action": {
+        "type": "bypass"
+      },
+      "description": "Use Google CrUX as an allow-list to prevent inspection of traffic to legitimate domains. Other alternatives is to use Cisco Umbrella, tranco-list.eu, data.openintel.nl or Alexa Top 1M (if you have an old copy). The expression can be either a local path or a http/https URL. Gzip compressed files are allowed, but not zip or tar."
+    }
+  ],
+  "default": {
+    "action": {
+      "type": "inspect"
+    },
+    "description": "This is the defalt policy if no rule matches the traffic."
+  }
+}

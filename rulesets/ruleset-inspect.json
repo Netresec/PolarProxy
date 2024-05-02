@@ -1,0 +1,34 @@
+{
+    "name": "TLS inspection",
+    "version": "1.0",
+    "description": "Inspect TLS connections that use SNI",
+    "rules": [
+        {
+            "active": true,
+            "match": {
+              "type": "nontls"
+            },
+            "action": {
+              "type": "block"
+            },
+            "description": "Block non-TLS traffic. Other possible actions are bypass and encrypt, but a target must be defined in the action section to use those."
+        },
+        {
+            "active": true,
+            "match": {
+              "type": "domain",
+              "expression": null
+            },
+            "action": {
+              "type": "block"
+            },
+            "description": "Block connections without SNI (unknown domain)."
+        }
+    ],
+    "default": {
+        "action": {
+            "type": "inspect"
+        },
+        "description": "This is the defalt policy if no rule matches the traffic."
+    }
+}
