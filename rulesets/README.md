@@ -1,5 +1,5 @@
 # Rulesets for PolarProxy
-[PolarProxy](https://www.netresec.com/?page=PolarProxy) can be used as a TLS firewall by providing a ruleset that defines match conditions and corresponding actions.
+[PolarProxy](https://www.netresec.com/?page=PolarProxy) can be used as a [TLS firewall](https://tlsfirewall.com) by providing a ruleset that defines match conditions and corresponding actions.
 
 ![PolarProxy block-inspect-bypass ASCII](https://media.netresec.com/images/PolarProxy_block-inspect-bypass-ascii_520x380.png)
 
