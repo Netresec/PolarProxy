@@ -131,20 +131,6 @@
         "type": "block"
       },
       "description": "Sliver"
-    },
-    {
-      "active": true,
-      "match": {
-        "type": "domain_in_file",
-        "expression": "https://easylist.to/easylist/easyprivacy.txt",
-        "format": "easylist",
-        "gzip": false,
-        "reload": 86400
-      },
-      "action": {
-        "type": "block"
-      },
-      "description": "Also block trackers, even though they aren't necessarily malicious."
     }
   ],
   "default": {
