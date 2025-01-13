@@ -3,7 +3,7 @@
 
 The rule based logic is activated by starting PolarProxy with `--ruleset FILE`, where `FILE` can be either a path or a URL to a ruleset file.
 
-As an example, the following command will start a SOCKS proxy on port 1080 that blocks TLS traffic to malicious domains, but lets all other traffic pass through without inspecting or decrypting the TLS layer:
+As an example, the following command will start a SOCKS proxy on port 1080 that blocks TLS traffic to malicious domains, but lets all other TLS traffic pass through without inspecting or decrypting the TLS layer:
 
 `PolarProxy --socks 1080 --ruleset https://raw.githubusercontent.com/Netresec/PolarProxy/main/rulesets/ruleset-block-malicious.json`
 
