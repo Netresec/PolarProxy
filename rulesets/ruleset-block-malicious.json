@@ -1,6 +1,6 @@
 {
   "name": "block-malicious TLS firewall",
-  "version": "1.0",
+  "version": "1.1",
   "description": "Ruleset that blocks potentially malicious traffic, but allows everything else to pass through without inspection. This ruleset doesn't require any additional root CA to be trusted by clients since it never decrypts or inspects the TLS traffic.",
   "rules": [
     {
@@ -51,6 +51,20 @@
         "type": "block"
       },
       "description": "Block traffic to dangerous websites"
+    },
+    {
+      "active": true,
+      "match": {
+        "type": "domain_in_file",
+        "expression": "https://zonefiles.io/f/compromised/domains/live/",
+        "format": "domainlist",
+        "gzip": false,
+        "reload": 3600
+      },
+      "action": {
+        "type": "block"
+      },
+      "description": "Block traffic to compromised domains"
     },
     {
       "active": true,
