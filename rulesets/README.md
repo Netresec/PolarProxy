@@ -7,4 +7,8 @@ As an example, the following command will start an HTTPS proxy on port 8080 that
 
 `PolarProxy --httpconnect 8080 --ruleset https://raw.githubusercontent.com/Netresec/PolarProxy/main/rulesets/ruleset-block-malicious.json`
 
+Rulesets can also be used in order to block ad and tracker traffic withou having to install an adblocker in your browser. This command starts an HTTPS proxy that blocks ads and trackers:
+
+`PolarProxy --httpconnect 8080 --ruleset https://raw.githubusercontent.com/Netresec/PolarProxy/main/rulesets/ruleset-block-ads.json`
+
 For more information about the ruleset format, see [PolarProxy TLS Firewall](https://www.netresec.com/?page=TlsFirewall).
