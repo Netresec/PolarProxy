@@ -42,6 +42,20 @@
       "active": true,
       "match": {
         "type": "domain_in_file",
+        "expression": "https://hole.cert.pl/domains/v2/domains.txt",
+        "format": "domainlist",
+        "gzip": false,
+        "reload": 300
+      },
+      "action": {
+        "type": "block"
+      },
+      "description": "Block traffic to dangerous websites"
+    },
+    {
+      "active": true,
+      "match": {
+        "type": "domain_in_file",
         "expression": "https://github.com/zakird/crux-top-lists/raw/main/data/global/current.csv.gz",
         "format": "crux",
         "gzip": true,
