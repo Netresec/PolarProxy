@@ -1,5 +1,5 @@
 {
-  "name": "block-malicious TLS firewall",
+  "name": "ad-block TLS firewall",
   "version": "1.0",
   "description": "Ruleset that blocks HTTPS connections to advertisment and tracker services. Other TLS traffic is allowed to pass through without inspection. This ruleset doesn't require any additional root CA to be trusted by clients since it never decrypts or inspects the TLS traffic.",
   "rules": [
