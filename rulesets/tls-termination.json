@@ -1,0 +1,16 @@
+{
+    "name": "TLS termination/offloading for local www",
+    "version": "1.0.1",
+    "rules": [
+        {
+            "active": true,
+            "match": { "type": "nontls" },
+            "action": { "type": "block" },
+            "description": "Block non-TLS traffic"
+        }
+    ],
+    "default": {
+        "action": { "type": "terminate", "target": "127.0.0.1:80" },
+        "description": "Terminate TLS and forward to local www"
+    }
+}
