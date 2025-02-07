@@ -1,5 +1,5 @@
 {
-    "name": "Inspect TLS with open fail for OpenSSL alerts",
+    "name": "Inspect TLS with fail open for OpenSSL alerts",
     "version": "1.0.1",
     "rules": [
         {
