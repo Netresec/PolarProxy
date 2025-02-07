@@ -1,0 +1,28 @@
+{
+    "name": "Inspect TLS with open fail for OpenSSL alerts",
+    "version": "1.0.1",
+    "rules": [
+        {
+            "active": true,
+            "match": { "type": "nontls" },
+            "action": { "type": "block" },
+            "description": "Block non-TLS traffic"
+        },
+        {
+            "active": true,
+            "match": { "type": "decrypt_fail_errorcode", "expression": "0x0A000412", "period": 60, "count": 1 },
+            "action": { "type": "bypass" },
+            "description": "bad certificate"
+        },
+        {
+            "active": true,
+            "match": { "type": "decrypt_fail_errorcode", "expression": "0x0A000418", "period": 60, "count": 1 },
+            "action": { "type": "bypass" },
+            "description": "unknown CA"
+        }
+    ],
+    "default": {
+        "action": { "type": "inspect" },
+        "description": "Attempt to inspect TLS traffic"
+        }
+}
