@@ -56,20 +56,6 @@
       "active": true,
       "match": {
         "type": "domain_in_file",
-        "expression": "https://zonefiles.io/f/compromised/domains/live/",
-        "format": "domainlist",
-        "gzip": false,
-        "reload": 3600
-      },
-      "action": {
-        "type": "block"
-      },
-      "description": "Block traffic to compromised domains"
-    },
-    {
-      "active": true,
-      "match": {
-        "type": "domain_in_file",
         "expression": "https://github.com/zakird/crux-top-lists/raw/main/data/global/current.csv.gz",
         "format": "crux",
         "gzip": true,
