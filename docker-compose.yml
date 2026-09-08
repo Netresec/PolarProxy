@@ -1,7 +1,7 @@
 services:
   polarproxy:
     build: .
-    image: polarproxy:2.0.2
+    image: ghcr.io/netresec/polarproxy:2.0.2
     container_name: polarproxy
     restart: unless-stopped
     read_only: true
