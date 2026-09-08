@@ -1,0 +1,48 @@
+services:
+  polarproxy:
+    build: .
+    image: polarproxy:2.0.2
+    container_name: polarproxy
+    restart: unless-stopped
+    read_only: true
+    tmpfs:
+      - /tmp:rw,mode=1777,size=64m
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL
+    ports:
+      - "443:10443/tcp"     #Forward TCP 443 to transparent TLS proxy port
+      - "10443:10443/tcp"   #Transparent TLS proxy: -p 10443,80,443
+      - "1080:1080/tcp"     #SOCKS4/SOCKS4a/SOCKS5 server: --socks 1080
+      - "8080:8080/tcp"     #HTTP Proxy server: --httpconnect 8080
+      - "10080:10080/tcp"   #Web server hosting root CA X.509 certificate: --certhttp 10080
+      - "57012:57012/tcp"   #PCAP-over-IP sever for decrypted traffic: --pcapoverip 57012
+    volumes:
+      - polarproxy_logs:/var/log/polarproxy
+      - polarproxy_data:/home/polarproxy
+    env_file:
+      - ./polarproxy.env
+    environment:
+      - HOME=/home/polarproxy
+      - TMPDIR=/tmp
+      # PP_* variables are set in polarproxy.env
+      #- PP_PROXY=10443,80,443
+      #- PP_SOCKS=1080
+      #- PP_HTTPCONNECT=8080
+      #- PP_NONTLS=allow
+      #- PP_CERTHTTP=10080
+      #- PP_EXPORT=/var/log/polarproxy/polarproxy.cer
+      #- PP_FLOWLOG=/var/log/polarproxy/proxyflows.log
+      #- PP_PCAPOVERIP=0.0.0.0:57012
+      #- PP_OUTPUTDIR=/var/log/polarproxy/
+      #- PP_VERBOSE=1
+    user: "polarproxy:polarproxy"
+    healthcheck:
+      test: ["CMD-SHELL", "curl --insecure --connect-to polarproxy.com:443:127.0.0.1:10443 -f --max-time 5 https://polarproxy.com/test || exit 1"]
+      interval: 300s
+      timeout: 10s
+      retries: 3
+volumes:
+  polarproxy_logs:
+  polarproxy_data:
