@@ -18,6 +18,51 @@ curl -fsSL https://raw.githubusercontent.com/Netresec/PolarProxy/refs/heads/main
 docker compose up -d
 ```
 
+# Environment Variables
+
+The following environment variables can be set to configure PolarProxy.
+
+```
+PP_AUTOFLUSH
+PP_BYPASS
+PP_BYPASSEXACT
+PP_BYPASSONFAIL
+PP_CACERT
+PP_CERTHTTP
+PP_CLIENTCERT
+PP_CONNECT
+PP_CUTOFF
+PP_DEBUG
+PP_EXPORT
+PP_FLOWLOG
+PP_HAPROXY
+PP_HELP
+PP_HELPENV
+PP_HELPHTML
+PP_HTTPCONNECT
+PP_IDLETIMEOUTCLIENT
+PP_IDLETIMEOUTSERVER
+PP_KEY
+PP_KEYFILE
+PP_LEAFCERT
+PP_MSS
+PP_NONTLS
+PP_NOSNI
+PP_OUTPUTDIR
+PP_PCAPOVERIP
+PP_PCAPOVERIPCONNECT
+PP_PCAPOVERIPPRIVATE
+PP_PROXY
+PP_REDIRECT
+PP_RULESET
+PP_SOCKS
+PP_TERMINATE
+PP_TIMEOUT
+PP_TLSTIMEOUT
+PP_VERBOSE
+PP_WRITE
+PP_WRITEALL
+```
 
 # PolarProxy Dockerfiles
 For more information about how to run PolarProxy in Docker, see [PolarProxy in Docker](https://www.netresec.com/?page=Blog&month=2020-10&post=PolarProxy-in-Docker). We also have instructions for [deploying PolarProxy in Podman](https://www.netresec.com/?page=Blog&month=2020-10&post=PolarProxy-in-Podman).
