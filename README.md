@@ -1,7 +1,9 @@
 # PolarProxy
-Assets and resources for [PolarProxy](https://www.netresec.com/?page=PolarProxy).
+[PolarProxy](https://www.netresec.com/?page=PolarProxy) is a transparent TLS and SSL inspection proxy created for incident responders, malware analysts and security researchers. PolarProxy decrypts and re-encrypts TLS traffic, while also saving the decrypted traffic in a PCAP file that can be loaded into Wireshark or an intrusion detection system (IDS). 
 
 <img src="PolarProxy_v2_2000x2000.webp" alt="PolarProxy logo" width="300" height="300" style="max-width: 30%; height: auto;" />
+
+More information about PolarProxy can be found on the [PolarProxy website](https://www.netresec.com/?page=PolarProxy).
 
 # Install as Container
 Install docker container from command line:
