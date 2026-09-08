@@ -1,6 +1,5 @@
 services:
   polarproxy:
-    build: .
     image: ghcr.io/netresec/polarproxy:2.0.2
     container_name: polarproxy
     restart: unless-stopped
