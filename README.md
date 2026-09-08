@@ -1,7 +1,7 @@
 # PolarProxy
 Assets and resources for [PolarProxy](https://www.netresec.com/?page=PolarProxy).
 
-![PolarProxy Logo](https://media.netresec.com/images/PolarProxy_313x313.png)
+<img src="PolarProxy_v2_2000x2000.webp" alt="PolarProxy logo" width="300" height="300" style="max-width: 30%; height: auto;" />
 
 # Install as Container
 Install docker container from command line:
